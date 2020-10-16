@@ -12,6 +12,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch(); // insteach of using connect, mapStateToProp
 
   const productList = useSelector((state) => state.productList);
+  console.log(productList);
   const { loading, error, products } = productList;
 
   useEffect(() => {
