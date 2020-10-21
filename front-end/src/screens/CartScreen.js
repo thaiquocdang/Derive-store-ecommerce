@@ -52,7 +52,7 @@ const CartScreen = ({ match, location, history }) => {
         ) : (
           <ListGroup variant="flush">
             {cartItems.map((item) => (
-              <ListGroup.Item>
+              <ListGroup.Item key={item.id}>
                 <Row>
                   <Col>
                     <Image src={item.image} alt={item.name} fluid rounded />
@@ -82,7 +82,7 @@ const CartScreen = ({ match, location, history }) => {
                       variant="light"
                       onClick={() => handleRemoveItem(item.id)}
                     >
-                      <i class="far fa-trash-alt"></i>
+                      <i className="far fa-trash-alt"></i>
                     </Button>
                   </Col>
                 </Row>

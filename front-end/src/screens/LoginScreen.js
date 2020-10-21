@@ -17,8 +17,8 @@ const LoginScreen = ({ location, history }) => {
 
   const { loading, error, userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
-  
+  const redirect = location.search ? location.search.split('=')[1] : '/'  
+
   useEffect(() => {
     if(userInfo) {
       history.push(redirect)
@@ -35,8 +35,9 @@ const LoginScreen = ({ location, history }) => {
     <FormContainer>
       <h1>Sign in</h1>
       { error && <Message variant='danger'>{error} </Message>}
-      <Form onClick={handleSubmit}>
-        <Form.Group>
+      { loading && <Loader />}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"

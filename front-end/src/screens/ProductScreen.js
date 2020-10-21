@@ -12,8 +12,10 @@ const ProductScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
+  console.log(productDetails, 'prodcut detail');
 
   const { product, loading, error } = productDetails;
+  console.log(product, 'prodcut');
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -32,7 +34,7 @@ const ProductScreen = ({ match, history }) => {
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
-      ) : (
+      ) : product ? (
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
@@ -108,7 +110,7 @@ const ProductScreen = ({ match, history }) => {
             </Card>
           </Col>
         </Row>
-      )}
+      ) : null}
     </>
   );
 };
