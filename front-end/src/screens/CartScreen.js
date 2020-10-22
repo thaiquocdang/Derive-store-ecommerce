@@ -15,16 +15,13 @@ import Message from "../components/Message";
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
-  console.log(productId);
 
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
-  console.log(qty);
 
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
 
   useEffect(() => {
     if (productId) {
@@ -37,7 +34,6 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const handleCheckOut = () => {
-    console.log("check out");
     history.push("/login?redirect=shipping");
   };
 

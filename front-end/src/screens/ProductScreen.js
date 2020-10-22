@@ -12,10 +12,8 @@ const ProductScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
-  console.log(productDetails, 'prodcut detail');
 
   const { product, loading, error } = productDetails;
-  console.log(product, 'prodcut');
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));

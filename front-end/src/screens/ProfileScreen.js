@@ -15,9 +15,6 @@ const ProfileScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  console.log(password, 'password');
-  console.log(confirmPassword, 'confirm');
-
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -51,7 +48,6 @@ const ProfileScreen = ({ location, history }) => {
     } else {
       //Dispatch update profile
       dispatch(updateUserProfile({id: user._id, name, email, password}))
-      console.log(password)
     }
   };
 
