@@ -16,7 +16,8 @@ const ProductScreen = ({ match, history }) => {
   const { product, loading, error } = productDetails;
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
+    dispatch(listProductDetails(match.params.id))
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const handleAddToCart = () => {
