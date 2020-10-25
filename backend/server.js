@@ -25,6 +25,9 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes)//anything relates to /api/products will be linked to productRoutes
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+
+//PAYPAL route. whenever ready for payment, we will hit this route and fetch client ID
+app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
  
 
 app.use(notFound)
