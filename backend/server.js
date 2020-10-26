@@ -15,6 +15,10 @@ connectDB()
 
 const app = express()
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
 app.use(express.json())
 
 app.use('/api/products', productRoutes) //anything relates to /api/products will be linked to productRoutes
