@@ -10,7 +10,8 @@ const UserListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const userList = useSelector((state) => state.userList)
-  const { loading, error, users } = userList
+  const { loading, error, users = [] } = userList // =[] : fallback value
+  console.log(users)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -49,44 +50,36 @@ const UserListScreen = ({ history }) => {
             </tr>
           </thead>
           <tbody>
-            {users
-              ? users.map((user) => (
-                  <tr key={user._id}>
-                    <td>{user._id}</td>
-                    <td>{user.name}</td>
-                    <td>
-                      <a href={`mailto:${user.email}`}>{user.email}</a>
-                    </td>
-                    <td>
-                      {user.isAdmin ? (
-                        <i
-                          className='fas fa-check'
-                          style={{ color: 'green' }}
-                        ></i>
-                      ) : (
-                        <i
-                          className='fas fa-times'
-                          style={{ color: 'red' }}
-                        ></i>
-                      )}
-                    </td>
-                    <td>
-                      <LinkContainer to={`/user/${user._id}/edit`}>
-                        <Button variant='light' className='btn-sm'>
-                          <i className='fas fa-edit'></i>
-                        </Button>
-                      </LinkContainer>
-                      <Button
-                        variant='danger'
-                        className='btn-sm'
-                        onClick={() => handleDelete(user._id)}
-                      >
-                        <i className='fas fa-trash'></i>
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              : null}
+            {users.map((user) => (
+              <tr key={user._id}>
+                <td>{user._id}</td>
+                <td>{user.name}</td>
+                <td>
+                  <a href={`mailto:${user.email}`}>{user.email}</a>
+                </td>
+                <td>
+                  {user.isAdmin ? (
+                    <i className='fas fa-check' style={{ color: 'green' }}></i>
+                  ) : (
+                    <i className='fas fa-times' style={{ color: 'red' }}></i>
+                  )}
+                </td>
+                <td>
+                  <LinkContainer to={`/user/${user._id}/edit`}>
+                    <Button variant='light' className='btn-sm'>
+                      <i className='fas fa-edit'></i>
+                    </Button>
+                  </LinkContainer>
+                  <Button
+                    variant='danger'
+                    className='btn-sm'
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    <i className='fas fa-trash'></i>
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       )}
