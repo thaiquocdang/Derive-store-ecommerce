@@ -44,7 +44,11 @@ const OrderScreen = ({ match }) => {
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
       script.async = true
 
-      script.addEventListener('load', setSdkReady(true), false)
+      // script.addEventListener('load', setSdkReady(true), false)
+
+      script.onload = () => {
+        setSdkReady(true)
+      }
 
       document.body.appendChild(script)
     }
