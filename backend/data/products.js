@@ -1,38 +1,38 @@
 const products = [
   {
-    name: 'Airpods Wireless Bluetooth Headphones',
-    image: '/images/airpods.jpg',
+    name: 'SAMSUNG 32 INCH SERIES 6 LED FULL HD',
+    image: '/images/samsung.jpg',
     description:
-      'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
-    brand: 'Apple',
+      'Quad Core Processor - faster access to Smart features. S Recommendation with Voice Interaction - ask your TV for personalised viewing recommendations. Samsung Smart Hub - the industry reference platform just got better†. Games Panel - discover a variety of fun games instantly on the largest screen in your home',
+    brand: 'Samsung',
     category: 'Electronics',
-    price: 89.99,
+    price: 389.99,
     countInStock: 10,
     rating: 4.5,
-    numReviews: 12,
+    numReviews: 9,
   },
   {
     name: 'iPhone 11 Pro 256GB Memory',
     image: '/images/phone.jpg',
     description:
-      'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
+      'Featuring a Stunning Pro Display, A13 Bionic, Cutting-Edge Pro Camera System and Longest Battery Life Ever in iPhone with iPhone 11 Pro Max',
     brand: 'Apple',
     category: 'Electronics',
-    price: 599.99,
+    price: 1299.99,
     countInStock: 7,
     rating: 4.0,
     numReviews: 8,
   },
   {
-    name: 'Cannon EOS 80D DSLR Camera', 
-    image: '/images/camera.jpg',
+    name: 'Iphone 12 Pro Max',
+    image: '/images/iphone12-pro.jpeg',
     description:
-      'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
+      'Best iPhone ever features the powerful A14 Bionic, all-new design with Ceramic Shield, pro camera system, LiDAR Scanner, and the biggest Super Retina XDR display ever on an iPhone',
     brand: 'Cannon',
     category: 'Electronics',
-    price: 929.99,
-    countInStock: 0,
-    rating: 3,
+    price: 1699.99,
+    countInStock: 8,
+    rating: 5,
     numReviews: 12,
   },
   {
@@ -71,6 +71,30 @@ const products = [
     rating: 4,
     numReviews: 12,
   },
+  {
+    name: 'Airpods Wireless Bluetooth Headphones',
+    image: '/images/airpods.jpg',
+    description:
+      'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
+    brand: 'Apple',
+    category: 'Electronics',
+    price: 89.99,
+    countInStock: 10,
+    rating: 4.5,
+    numReviews: 12,
+  },
+  {
+    name: 'Cannon EOS 80D DSLR Camera',
+    image: '/images/camera.jpg',
+    description:
+      'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
+    brand: 'Cannon',
+    category: 'Electronics',
+    price: 929.99,
+    countInStock: 0,
+    rating: 3,
+    numReviews: 12,
+  },
 ]
-// module.exports =  products
+
 export default products
