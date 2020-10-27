@@ -23,6 +23,7 @@ import {
   orderDetailsReducer,
   orderPayReducer,
 } from './reducers/orderReducers'
+import { AllState } from './type/Store'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -63,7 +64,7 @@ const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
-    paymentMethod: paymentMethodFromStorage,
+    paymentMethod: paymentMethodFromStorage
   },
   userLogin: { userInfo: userInfoFromStorage },
 }
@@ -72,7 +73,7 @@ const middleware = [thunk]
 
 const store = createStore(
   reducer,
-  initialState,
+  initialState as any,
   composeWithDevTools(applyMiddleware(...middleware))
 )
 

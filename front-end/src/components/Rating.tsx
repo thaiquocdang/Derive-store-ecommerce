@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+type Props = {
+  value: number
+  text: string
+  color?: string
 
-const Rating = ({ value, text, color }) => {
+}
+const Rating: React.FC<Props> = ({ value, text, color }) => {
 
   return (
     <div className='rating'>

@@ -13,39 +13,67 @@ import {
   GET_MY_ORDERS_SUCCESS,
   GET_MY_ORDERS_FAIL,
   GET_MY_ORDERS_RESET,
-} from "../constants/orderConstants";
-
+} from '../constants/orderConstants'
+import { AllState } from '../type/Store'
 //place order reducer
-const orderCreateReducer = (state = {}, action) => {
+const orderCreateReducer = (
+  state: AllState['orderCreate'] = {
+    order: {
+      gst: 0,
+      itemsPrice: 0,
+      orderItems: [],
+      paymentMethod: 'PayPal',
+      shippingAddress: {
+        address: '',
+        city: '',
+        country: '',
+        postalCode: '',
+      },
+      shippingFee: 0,
+      totalPrice: 0,
+      user: {
+        _id: '',
+        email: '',
+        name: '',
+      },
+    },
+    success: false,
+    loading: false,
+  },
+  action
+): AllState['orderCreate'] => {
   switch (action.type) {
     case ORDER_CREATE_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true }
 
     case ORDER_CREATE_SUCCESS:
-      return { loading: false, success: true, order: action.payload };
+      return { loading: false, success: true, order: action.payload }
 
     case ORDER_CREATE_FAIL:
-      return { loading: false, error: action.payload };
- 
+      return { ...state, loading: false, error: action.payload }
+
     default:
-      return state;
+      return state
   }
-};
+}
 
 //get order details reducer
-const orderDetailsReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
+const orderDetailsReducer = (
+  state = { loading: true, orderItems: [], shippingAddress: {} },
+  action
+) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true }
 
     case ORDER_DETAILS_SUCCESS:
-      return { loading: false, order: action.payload };
+      return { loading: false, order: action.payload }
 
     case ORDER_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
- 
+      return { loading: false, error: action.payload }
+
     default:
-      return state;
+      return state
   }
 }
 
@@ -62,12 +90,12 @@ const orderPayReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
 
     case ORDER_PAY_RESET:
-      return { }
- 
+      return {}
+
     default:
-      return state;
+      return state
   }
-};
+}
 
 const getMyOrdersReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
@@ -82,10 +110,15 @@ const getMyOrdersReducer = (state = { orders: [] }, action) => {
 
     case GET_MY_ORDERS_RESET:
       return { orders: [] }
- 
-    default:
-      return state;
-  }
-};
 
-export { orderCreateReducer, orderDetailsReducer, orderPayReducer, getMyOrdersReducer }
+    default:
+      return state
+  }
+}
+
+export {
+  orderCreateReducer,
+  orderDetailsReducer,
+  orderPayReducer,
+  getMyOrdersReducer,
+}

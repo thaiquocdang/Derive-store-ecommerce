@@ -10,21 +10,22 @@ import {
   createProduct,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import { AllState } from '../type/Store'
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList)
+  const productList: AllState['productList'] = useSelector((state: AllState) => state.productList)
   const { loading, error, products = [] } = productList //= []: fallback value
 
-  const productDelete = useSelector((state) => state.productDelete)
+  const productDelete: AllState['productDelete'] = useSelector((state: AllState) => state.productDelete)
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = productDelete
 
-  const productCreate = useSelector((state) => state.productCreate)
+  const productCreate: AllState['productCreate'] = useSelector((state: AllState) => state.productCreate)
   const {
     loading: loadingCreate,
     error: errorCreate,
@@ -32,7 +33,7 @@ const ProductListScreen = ({ history, match }) => {
     product: createdProduct,
   } = productCreate
 
-  const userLogin = useSelector((state) => state.userLogin)
+  const userLogin: AllState['userLogin'] = useSelector((state: AllState) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {

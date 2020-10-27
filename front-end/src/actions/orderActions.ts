@@ -11,19 +11,24 @@ import {
   GET_MY_ORDERS_REQUEST,
   GET_MY_ORDERS_SUCCESS,
   GET_MY_ORDERS_FAIL,
+  OrderCreateRequestI,
+  OrderCreateSuccessI,
+  OrderCreateFailI,
 } from '../constants/orderConstants'
 import axios from 'axios'
-
+import { UserI } from '../type/User'
+import { AllState } from '../type/Store'
+import { OrderI } from '../type/Order'
 //place order action
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrder = (order: OrderI) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
-    })
+    } as OrderCreateRequestI)
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    }: AllState = getState()
 
     const config = {
       headers: {
@@ -32,12 +37,12 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/orders`, order, config)
+    const { data } = await axios.post<OrderI>(`/api/orders`, order, config)
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
-    })
+    } as OrderCreateSuccessI)
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -45,12 +50,12 @@ export const createOrder = (order) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    } as OrderCreateFailI)
   }
 }
 
 //get order details action
-export const getOrderDetails = (id) => async (dispatch, getState) => {
+export const getOrderDetails = (id: string) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_DETAILS_REQUEST,
@@ -67,6 +72,8 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(`/api/orders/${id}`, config)
+
+    console.log(data, 'data')
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,

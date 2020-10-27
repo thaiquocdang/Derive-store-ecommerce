@@ -6,6 +6,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { register } from '../actions/userActions'
+import { AllState } from "../type/Store";
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -16,14 +17,17 @@ const RegisterScreen = ({ location, history }) => {
 
   const dispatch = useDispatch()
 
-  const userRegister = useSelector((state) => state.userRegister)
-
+  const userRegister: AllState['userRegister'] = useSelector((state: AllState) => state.userRegister)
   const { loading, error, userInfo } = userRegister
+
+  const userLogin: AllState['userLogin'] = useSelector((state: AllState) => state.userLogin)
+  const {userInfo: userInfoLogIn} = userLogin
+
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
   
   useEffect(() => {
-    if(userInfo) {
+    if((userInfoLogIn && userInfoLogIn._id) || userInfo._id ) {
       history.push(redirect)
     }
   }, [history, userInfo, redirect])
@@ -42,10 +46,10 @@ const RegisterScreen = ({ location, history }) => {
   return (
     <FormContainer>
       <h1>Sign Up</h1>
+      { loading && <Loader />}
       { message && <Message variant='danger'>{message} </Message>}
       { error && <Message variant='danger'>{error} </Message>}
-      { loading && <Loader />}
-      <Form onClick={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control

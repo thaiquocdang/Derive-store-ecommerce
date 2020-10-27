@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 // import products from '../products'
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
-import Product from "../components/Product";
-import { listProducts } from "../actions/productActions";
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
+import Product from '../components/Product'
+import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
-// import axios from 'axios'
+import { AllState } from '../type/Store'
 
 const HomeScreen = () => {
-  // const [products, setProducts] = useState([]);
-  const dispatch = useDispatch(); // insteach of using connect, mapStateToProp
+  const dispatch = useDispatch() // insteach of using connect, mapStateToProp
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const productList: AllState['productList'] = useSelector((state: AllState) => state.productList)
+  const { loading, error, products } = productList
 
   useEffect(() => {
     // const fetchProducts = async () => {
@@ -26,8 +25,8 @@ const HomeScreen = () => {
     //   // setProducts(data)
     // }
     // fetchProducts()
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts())
+  }, [dispatch])
 
   return (
     <>
@@ -43,12 +42,10 @@ const HomeScreen = () => {
       ) : error ? (
         <h3>{error}</h3>
       ) : loading ? (
-        <Loader/>
+        <Loader />
       ) : null}
-
-      
     </>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

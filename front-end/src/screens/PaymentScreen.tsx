@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import CheckOutSteps from '../components/CheckOutSteps'
 import { savePaymentMethod } from '../actions/cartActions'
+import { AllState } from '../type/Store'
 
 const PaymentScreen = ({ history }) => {
-  const cart = useSelector((state) => state.cart)
+  const cart: AllState['cart'] = useSelector((state: AllState) => state.cart)
   const { shippingAddress } = cart
 
   if (!shippingAddress) {
     history.push('/shipping')
   }
 
-  const [paymentMethod, setPaymentMethod] = useState('PayPal')
+  const [paymentMethod, setPaymentMethod] = useState<string>('PayPal')
 
   const dispatch = useDispatch()
 

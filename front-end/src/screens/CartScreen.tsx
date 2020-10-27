@@ -12,15 +12,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeItem } from "../actions/cartActions";
 import Message from "../components/Message";
+import { AllState } from "../type/Store";
 
 const CartScreen = ({ match, location, history }) => {
-  const productId = match.params.id;
+  const productId: string = match.params.id;
 
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart:AllState['cart'] = useSelector((state: AllState) => state.cart);
   const { cartItems } = cart;
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty]);
 
-  const handleRemoveItem = (id) => {
+  const handleRemoveItem = (id: string) => {
     dispatch(removeItem(id));
   };
 

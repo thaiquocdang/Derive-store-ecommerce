@@ -2,7 +2,14 @@ import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const CheckOutSteps = ({ step1, step2, step3, step4 }) => {
+type Props = {
+  step1?: boolean
+  step2?: boolean
+  step3?: boolean
+  step4?: boolean
+}
+
+const CheckOutSteps: React.FC<Props> =  ({ step1, step2, step3, step4 }) => {
   return (
     <Nav className='justify-content-center mb-4'>
       <Nav.Item>

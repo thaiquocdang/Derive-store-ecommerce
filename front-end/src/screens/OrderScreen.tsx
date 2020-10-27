@@ -10,30 +10,31 @@ import { removeAllItem } from '../actions/cartActions'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import { AllState } from '../type/Store'
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id
 
-  const [sdkReady, setSdkReady] = useState(false)
+  const [sdkReady, setSdkReady] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
-  const orderDetails = useSelector((state) => state.orderDetails)
+  const orderDetails: AllState['orderDetails'] = useSelector((state: AllState) => state.orderDetails)
   // const { loading, orderItems, shippingAddress, error } = orderDetails;
   const { loading, order, error } = orderDetails
 
-  const orderPay = useSelector((state) => state.orderPay)
+  const orderPay: AllState['orderPay'] = useSelector((state: AllState) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
 
   if (!loading) {
-    const addDecimals = (num) => {
+    const addDecimals = (num: number) => {
       return (Math.round(num * 100) / 100).toFixed(2)
     }
 
     //Cal price
-    order.itemsPrice = addDecimals(
+    order.itemsPrice = Number(addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    )
+    ))
   }
 
   useEffect(() => {
@@ -104,9 +105,9 @@ const OrderScreen = ({ match }) => {
               {order.shippingAddress.postalCode},{' '}
               {order.shippingAddress.country}
             </p>
-            {order.isDeliverd ? (
+            {order.isDelivered ? (
               <Message variant='success'>
-                Delivered on {order.DeliveredAt}
+                Delivered on {order.deliveredAt}
               </Message>
             ) : (
               <Message variant='danger'>Not delivered</Message>

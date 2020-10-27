@@ -5,11 +5,25 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_REMOVE_ALL_ITEM,
 } from '../constants/cartConstants'
+import { AllState } from '../type/Store'
 
 export const cartReducer = (
-  state = { cartItems: [], shippingAddress: {} },
+  state: AllState['cart'] = {
+    cartItems: [],
+    gst: 0,
+    itemsPrice: 0,
+    paymentMethod: 'paypal',
+    shippingFee: 0,
+    totalPrice: 0,
+    shippingAddress: {
+      address: '',
+      city: '',
+      country: 'AUS',
+      postalCode: '',
+    },
+  },
   action
-) => {
+): AllState['cart'] => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload

@@ -5,26 +5,28 @@ import Message from "../components/Message";
 import CheckOutSteps from "../components/CheckOutSteps";
 import { Link } from "react-router-dom";
 import { createOrder } from "../actions/orderActions";
+import { AllState } from "../type/Store";
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart: AllState['cart'] = useSelector((state: AllState) => state.cart);
+  const user: AllState['userDetails']  = useSelector((state: AllState) => state.userDetails);
   // console.log(cart);
 
-  const addDecimals = (num) => {
+  const addDecimals = (num: number) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
   //Cal price
-  cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  cart.itemsPrice = Number(addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0))
   );
   cart.shippingFee = cart.itemsPrice > 100 ? 0 : 10;
-  cart.gst = addDecimals(Number((1 / 11) * cart.itemsPrice));
-  cart.totalPrice = addDecimals(Number(cart.itemsPrice + cart.shippingFee));
+  cart.gst = Number(addDecimals(Number((1 / 11) * cart.itemsPrice)));
+  cart.totalPrice = Number(addDecimals(Number(cart.itemsPrice + cart.shippingFee)));
 
-  const orderCreate = useSelector((state) => state.orderCreate);
+  const orderCreate: AllState['orderCreate'] = useSelector((state: AllState) => state.orderCreate);
 
   const { success, order, error } = orderCreate;
 
@@ -39,6 +41,7 @@ const PlaceOrderScreen = ({ history }) => {
   const handlePlaceOrder = () => {
     dispatch(
       createOrder({
+        user: user.user,
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         itemsPrice: cart.itemsPrice,
@@ -132,7 +135,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <Button
                   type="button"
                   className="btn-block"
-                  disable={cart.cartItems === 0}
+                  disabled={cart.cartItems.length === 0 }
                   onClick={handlePlaceOrder}
                 >
                   Place Order

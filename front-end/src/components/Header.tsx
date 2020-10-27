@@ -3,19 +3,21 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown, Dropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
+import { AllState } from '../type/Store'
 
 const Header = () => {
   const dispatch = useDispatch()
 
-  const cart = useSelector((state) => state.cart)
+  const cart: AllState['cart'] = useSelector((state: AllState) => state.cart)
   const basketItem = cart.cartItems.length
 
-  const userLogin = useSelector((state) => state.userLogin)
+  const userLogin: AllState['userLogin'] = useSelector((state: AllState) => state.userLogin)
 
   const { userInfo } = userLogin
 
   const handleLogout = () => {
     dispatch(logout())
+    window.location.href = '/'
   }
 
   return (

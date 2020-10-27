@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import { getMyOrders } from '../actions/orderActions'
+import { AllState } from '../type/Store';
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -17,19 +18,20 @@ const ProfileScreen = ({ location, history }) => {
 
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails: AllState['userDetails'] = useSelector((state: AllState) => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin: AllState['userLogin'] = useSelector((state: AllState) => state.userLogin);
   const { userInfo } = userLogin
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const userUpdateProfile: AllState['userUpdateProfile'] = useSelector((state: AllState) => state.userUpdateProfile);
   const { success } = userUpdateProfile
 
-  const myOrdersList = useSelector((state) => state.myOrdersList);
+  const myOrdersList: AllState['myOrdersList'] = useSelector((state: AllState) => state.myOrdersList);
+  
   const { loading:loadingOrders, error: errorOrders, orders } = myOrdersList;
 
-  console.log(orders);
+  // console.log(orders);
 
   useEffect(() => {
     if (!userInfo) {

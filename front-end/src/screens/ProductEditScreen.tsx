@@ -8,25 +8,26 @@ import { listProductDetails, updateProduct } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import { AllState } from '../type/Store'
 
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id
 
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState(0)
-  const [image, setImage] = useState('')
-  const [brand, setBrand] = useState('')
-  const [category, setCategory] = useState('')
-  const [countInStock, setCountInStock] = useState(0)
-  const [description, setDescription] = useState('')
-  const [uploading, setUploading] = useState(false)
+  const [name, setName] = useState<string>('')
+  const [price, setPrice] = useState<number>(0)
+  const [image, setImage] = useState<string>('')
+  const [brand, setBrand] = useState<string>('')
+  const [category, setCategory] = useState<string>('')
+  const [countInStock, setCountInStock] = useState<number>(0)
+  const [description, setDescription] = useState<string>('')
+  const [uploading, setUploading] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
-  const productDetails = useSelector((state) => state.productDetails)
+  const productDetails: AllState['productDetails'] = useSelector((state: AllState) => state.productDetails)
   const { loading, error, product } = productDetails
 
-  const productUpdate = useSelector((state) => state.productUpdate)
+  const productUpdate: AllState['productUpdate'] = useSelector((state: AllState) => state.productUpdate)
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -122,7 +123,7 @@ const ProductEditScreen = ({ match, history }) => {
                 type='number'
                 placeholder='Enter price'
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setPrice(Number(e.target.value))}
               ></Form.Control>
             </Form.Group>
 
@@ -159,7 +160,7 @@ const ProductEditScreen = ({ match, history }) => {
                 type='number'
                 placeholder='Enter count in stock'
                 value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
+                onChange={(e) => setCountInStock(Number(e.target.value))}
               ></Form.Control>
             </Form.Group>
 

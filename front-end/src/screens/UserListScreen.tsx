@@ -5,18 +5,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUsers, deleteUser } from '../actions/userActions'
+import { AllState } from '../type/Store'
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch()
 
-  const userList = useSelector((state) => state.userList)
+  const userList: AllState['userList'] = useSelector((state: AllState )=> state.userList)
   const { loading, error, users = [] } = userList // =[] : fallback value
-  console.log(users)
 
-  const userLogin = useSelector((state) => state.userLogin)
+  const userLogin: AllState['userLogin'] = useSelector((state: AllState ) => state.userLogin)
   const { userInfo } = userLogin
 
-  const userDelete = useSelector((state) => state.userDelete)
+  const userDelete: AllState['userDelete'] = useSelector((state: AllState ) => state.userDelete)
   const { success: successDelete } = userDelete
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const UserListScreen = ({ history }) => {
     }
   }, [dispatch, history, userInfo, successDelete])
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteUser(id))
     }

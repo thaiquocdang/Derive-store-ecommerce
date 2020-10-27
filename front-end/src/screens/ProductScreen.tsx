@@ -6,12 +6,13 @@ import Rating from "../components/Rating";
 import { listProductDetails } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { AllState } from "../type/Store";
 
 const ProductScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1)
   const dispatch = useDispatch();
 
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails: AllState['productDetails'] = useSelector((state: AllState) => state.productDetails);
 
   const { product, loading, error } = productDetails;
 
@@ -83,7 +84,7 @@ const ProductScreen = ({ match, history }) => {
                     <Row>
                       <Col>Quantity</Col>
                       <Col>
-                        <Form.Control as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
+                        <Form.Control as='select' value={qty} onChange={(e) => setQty(Number(e.target.value))}>
                           {[...Array(product.countInStock).keys()].map(x => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}

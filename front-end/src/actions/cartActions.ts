@@ -5,11 +5,22 @@ import {
   CART_REMOVE_ALL_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
+  CartAddItemActionI,
+  CartRemoveItemActionI,
+  CartRemoveAllItemActionI,
+  CartSaveShippingAddressI,
+  CartSavePaymentMethodI,
 } from '../constants/cartConstants'
+import { AddressI } from '../type/Cart'
+import { ProductI } from '../type/Product'
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
+export const addToCart = (id: string, qty: number) => async (
+  dispatch: (arg: CartAddItemActionI) => void,
+  getState
+) => {
   //getState to get entired state
-  const { data } = await axios.get(`/api/products/${id}`)
+
+  const { data } = await axios.get<ProductI>(`/api/products/${id}`)
 
   dispatch({
     type: CART_ADD_ITEM,
@@ -26,7 +37,10 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
-export const removeItem = (id) => (dispatch, getState) => {
+export const removeItem = (id: string) => (
+  dispatch: (arg: CartRemoveItemActionI) => void,
+  getState
+) => {
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: id,
@@ -35,14 +49,19 @@ export const removeItem = (id) => (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
-export const removeAllItem = () => (dispatch, getState) => {
+export const removeAllItem = () => (
+  dispatch: (arg: CartRemoveAllItemActionI) => void,
+  getState
+) => {
   dispatch({
     type: CART_REMOVE_ALL_ITEM,
   })
   localStorage.removeItem('cartItems')
 }
 
-export const saveShippingAddress = (data) => (dispatch) => {
+export const saveShippingAddress = (data: AddressI) => (
+  dispatch: (arg: CartSaveShippingAddressI) => void
+) => {
   dispatch({
     type: CART_SAVE_SHIPPING_ADDRESS,
     payload: data,
@@ -51,7 +70,9 @@ export const saveShippingAddress = (data) => (dispatch) => {
   localStorage.setItem('shippingAddress', JSON.stringify(data))
 }
 
-export const savePaymentMethod = (data) => (dispatch) => {
+export const savePaymentMethod = (data: string) => (
+  dispatch: (arg: CartSavePaymentMethodI) => void
+) => {
   dispatch({
     type: CART_SAVE_PAYMENT_METHOD,
     payload: data,
